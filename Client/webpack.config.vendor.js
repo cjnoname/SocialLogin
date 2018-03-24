@@ -3,7 +3,7 @@ const webpack = require('webpack');
 
 module.exports = (env, argv) => {
   const isDevBuild = argv.mode !== 'production';
-  const targetPath = isDevBuild ? path.join(__dirname, 'dist') : path.join(__dirname, '..', 'Server', 'OAuthManagement', 'wwwroot', 'dist')
+  const targetPath = isDevBuild ? path.join(__dirname, 'dist') : path.join(__dirname, '..', 'Server', 'SocialLogin', 'wwwroot', 'dist')
   const vendorConfig = {
     stats: { modules: false },
     resolve: { extensions: ['.js'] },

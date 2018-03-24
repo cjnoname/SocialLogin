@@ -1,8 +1,8 @@
 {
-  "name": "oauthmanagement",
+  "name": "sociallogin",
   "author": "CJ <chengj@ticketek.com.au>",
   "private": true,
-  "version": "0.0.2",
+  "version": "0.0.1",
   "scripts": {
     "build-vendor": "./node_modules/.bin/webpack --config webpack.config.vendor.js --mode development",
     "run-site": "./node_modules/.bin/webpack-dev-server -d --port 3000 --hot --history-api-fallback --open",

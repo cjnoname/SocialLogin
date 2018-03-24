@@ -19,11 +19,16 @@ const history = createBrowserHistory({ basename: baseUrl });
 const initialState = (window as any).initialReduxState as ApplicationState;
 const store = configureStore(history, initialState);
 
-function renderApp() {
+async function renderApp() {
 
-  debugger;
   // fetch Initial values
-  store.dispatch(actionCreators.initialAction());
+  await store.dispatch(actionCreators.initialAction((window as any).initial));
+  try {
+    delete (window as any).initial;
+  }
+  catch (e) {
+    (window as any)['initial'] = undefined;
+  }
 
   // This code starts up the React app when it runs in a browser. It sets up the routing configuration
   // and injects the app into a DOM element.

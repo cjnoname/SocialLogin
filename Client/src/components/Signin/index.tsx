@@ -46,7 +46,6 @@ const SignIn = decorate(
     }
 
     public render() {
-      debugger;
       const { classes, signIn: { isLoading }, initial } = this.props;
       const signInContent = initial.signInContent!;
       return <div className={classes.parent}>

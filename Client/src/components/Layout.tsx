@@ -70,7 +70,8 @@ const decorate = withStyles(({ breakpoints, mixins, palette, spacing }) => ({
   },
   center: {
     display: 'flex',
-    justifyContent: 'center' as 'center'
+    justifyContent: 'center' as 'center',
+    height: '100%'
   }
 }));
 
@@ -91,9 +92,9 @@ const MyLayout = decorate(
             <div className={classes.center}>
               {this.props.children}
             </div>
-          </div>
-          <div className={classes.footer}>
-            <a className={classes.text} href='http://premier.ticketek.com.au/Content/buyers/termsofsale.aspx'>Terms &amp; conditions</a> | <a className={classes.text} href='http://premier.ticketek.com.au/Content/buyers/privacy.aspx'>Privacy</a>
+            <div className={classes.footer}>
+              <a className={classes.text} href='http://premier.ticketek.com.au/Content/buyers/termsofsale.aspx'>Terms &amp; conditions</a> | <a className={classes.text} href='http://premier.ticketek.com.au/Content/buyers/privacy.aspx'>Privacy</a>
+            </div>
           </div>
         </div>
       );

@@ -15,6 +15,8 @@ namespace SocialLogin.Services
             {
                 //AuthToken = "h9sCuBrQQYKRqxwbz",
                 SignInOption = new List<string> { "MyTicketek", "Facebook", "Google" },
+                MobileConfigUrl = "https://ignition.qa.ticketek.net/config",
+                CustomerListId = 2,
                 SignIn = new SignIn
                 {
                     SectionTitle = "Verification",

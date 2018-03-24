@@ -4,7 +4,7 @@ const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 
 module.exports = (env, argv) => {
   const isDevBuild = argv.mode !== 'production';
-  const targetPath = isDevBuild ? path.join(__dirname, 'dist') : path.join(__dirname, '..', 'Server', 'OAuthManagement', 'wwwroot', 'dist');
+  const targetPath = isDevBuild ? path.join(__dirname, 'dist') : path.join(__dirname, '..', 'Server', 'SocialLogin', 'wwwroot', 'dist');
   const config = {
     stats: { modules: false },
     resolve: { extensions: ['.js', '.jsx', '.ts', '.tsx'] },

@@ -5,15 +5,16 @@ import { IException, isException, isNoContent } from '../../../utils/error';
 import * as Api from "../apis";
 import { InitialState, SignInContent } from '../../../models/initial';
 
-export const initialAction = (): AppThunkAction<KnownAction> => async (dispatch) => {
+export const initialAction = (signInContent?: SignInContent): AppThunkAction<KnownAction> => async (dispatch) => {
   try {
-    dispatch({ type: ActionTypes.INITIAL_STARTED });
-    const response = await Api.getSignInContent();
-    if (!response.ok) {
-      throw { httpCode: response.status, message: await response.json() } as IException;
+    if (!signInContent) {
+      const response = await Api.getSignInContent();
+      if (!response.ok) {
+        throw { httpCode: response.status, message: await response.json() } as IException;
+      }
+      signInContent = isNoContent(response) ? undefined : await response.json();
     }
-    const data = isNoContent(response) ? undefined : await response.json();
-    dispatch({ type: ActionTypes.INITIAL_SUCCEEDED, signInContent: data });
+    dispatch({ type: ActionTypes.INITIAL_SUCCEEDED, signInContent: signInContent });
   } catch (e) {
     if (isException(e)) {
       console.log(e.httpCode, e.message);
@@ -29,7 +30,6 @@ export const initialAction = (): AppThunkAction<KnownAction> => async (dispatch)
 export const initialStarted = (state: InitialState) => state.set("isLoading", true);
 
 export const initialSucceeded = (state: InitialState, action: InitialSucceeded) => {
-  alert(1);
   return state
     .set("isLoading", false)
     .set("signInContent", action.signInContent ? new SignInContent(action.signInContent) : undefined);

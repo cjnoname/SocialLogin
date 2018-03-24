@@ -17,7 +17,8 @@
 </head>
 <body>
     <script>
-        window.theme = "main"
+        window.initial = @Html.Raw(ViewBag.SignInContent);
+        window.theme = 'main';
         window.API_BASE = '@Url.Content("~")';
     </script>
     <div id="react-app"></div>
