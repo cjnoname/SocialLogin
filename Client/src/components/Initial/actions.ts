@@ -1,4 +1,4 @@
-import { SignInContent } from '../../models/initial';
+import { Initial } from '../../models/initial';
 import { initialAction } from './workers/initial';
 
 export enum ActionTypes {
@@ -8,16 +8,16 @@ export enum ActionTypes {
 }
 
 export interface InitialStarted {
-  type: ActionTypes.INITIAL_STARTED;
+  type: ActionTypes.INITIAL_STARTED
 }
 
 export interface InitialSucceeded {
-  type: ActionTypes.INITIAL_SUCCEEDED;
-  signInContent?: SignInContent;
+  type: ActionTypes.INITIAL_SUCCEEDED,
+  initial?: Initial
 }
 
 export interface InitialFailed {
-  type: ActionTypes.INITIAL_FAILED;
+  type: ActionTypes.INITIAL_FAILED
 }
 
 export type KnownAction = InitialStarted | InitialSucceeded | InitialFailed;

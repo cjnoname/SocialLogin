@@ -1,5 +1,5 @@
 import { Record, List } from 'immutable';
-import { convertListToImmutable } from '../../utils/immutable';
+import { convertListToImmutable } from '../../../utils/immutable';
 import { Labels } from './';
 
 interface Interface {

@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { NavLink, RouteComponentProps, Redirect } from 'react-router-dom';
+import { NavLink, RouteComponentProps } from 'react-router-dom';
 import { withStyles, WithStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
 import { SubmissionError } from 'redux-form';
 import { ApplicationState } from '../../store';
 import { Typography } from '../../shared/UI/Tabs';
-import Login from './views/Login';
-import { SignInState, ISignInRequest } from '../../models/signIn';
+import Register from './views/Register';
+import { SignUpState, ISignUpRequest } from '../../models/signup';
 import { actionCreators } from './actions';
 import Spinner from '../../shared/UI/Spinner';
 import Paper from 'material-ui/Paper';
@@ -38,11 +38,11 @@ type Props =
   & typeof actionCreators
   & RouteComponentProps<{}>;
 
-const SignIn = decorate(
+const SignUp = decorate(
   class extends React.Component<Props & WithStyles<'parent' | 'paper' | 'marginTop20' | 'text'>, {}> {
 
-    submit = (values: ISignInRequest) => {
-      this.props.signInAction(values);
+    submit = (values: ISignUpRequest) => {
+      this.props.signUpAction(values);
     }
 
     public render() {
@@ -52,16 +52,13 @@ const SignIn = decorate(
         <Spinner loading={isLoading} />
         <Paper className={classes.paper} elevation={4}>
           <Typography variant="headline" component="h2">
-            Sign In
+            Create an account
           </Typography>
           <Divider className={classes.marginTop20} />
-          <Login onSubmit={this.submit} />
+          <Register onSubmit={this.submit} />
           <Divider className={classes.marginTop20} />
           <div className={classes.text}>
-            <a href='https://premier.ticketek.com.au/membership/ForgotPassword.aspx'>{signInContent.signIn!.labels!.forgotPassword}</a>
-          </div>
-          <div className={classes.text}>
-            <NavLink to='/signup'>{signInContent.signIn!.labels!.createProfile}</NavLink>
+            <NavLink to='/signin'>Already have an account?</NavLink>
           </div>
         </Paper>
       </div>;
@@ -72,4 +69,4 @@ const SignIn = decorate(
 export default connect(
   (state: ApplicationState) => state,
   actionCreators
-)(SignIn as any) as any;
+)(SignUp as any) as any;

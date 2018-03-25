@@ -16,12 +16,12 @@ const drawerWidth = 240;
 const decorate = withStyles(({ breakpoints, mixins, palette, spacing }) => ({
   root: {
     flexGrow: 1,
-    height: '100%',
+    height: '100vh',
     zIndex: 1,
     overflow: 'hidden' as 'hidden',
     position: 'relative' as 'relative',
     display: 'flex',
-    width: '100%'
+    width: '100vw'
   },
   appBar: {
     position: 'absolute' as 'absolute',

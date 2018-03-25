@@ -6,5 +6,6 @@ namespace SocialLogin.Interfaces
     public interface ISignInService
     {
         Task<SignInContent> GetSignInContent();
+        Task<SignUpContent> GetSignUpContent();
     }
 }

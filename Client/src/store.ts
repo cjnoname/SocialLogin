@@ -2,11 +2,14 @@ import { InitialState } from './models/initial';
 import { InitialReducer } from './components/Initial/reducers';
 import { SignInState } from './models/signIn';
 import { SignInReducer } from './components/SignIn/reducers';
+import { SignUpState } from './models/signUp';
+import { SignUpReducer } from './components/SignUp/reducers';
 
 // The top-level state object
 export interface ApplicationState {
-  initial: InitialState;
-  signIn: SignInState;
+  initial: InitialState,
+  signIn: SignInState,
+  signUp: SignUpState
 }
 
 // Whenever an action is dispatched, Redux will update each top-level application state property using
@@ -14,7 +17,8 @@ export interface ApplicationState {
 // acts on the corresponding ApplicationState property type.
 export const reducers = {
   initial: InitialReducer,
-  signIn: SignInReducer
+  signIn: SignInReducer,
+  signUp: SignUpReducer
 };
 
 // This type can be used as a hint on action creators so that its 'dispatch' and 'getState' params are

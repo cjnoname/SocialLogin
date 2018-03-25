@@ -25,13 +25,17 @@ namespace SocialLogin.Services
                     Help = "some help on signing in",
                     Labels = new Labels
                     {
-                        Email = "Email *",
+                        Email = "Email",
                         EmailPrompt = "Enter email",
-                        Password = "Password* ",
+                        Password = "Password",
                         PasswordPrompt = "Enter password",
                         PasswordReveal = "SHOW",
                         SignInButton = "Verify",
+
+                        // !!!! forgot password url
                         ForgotPassword = "Forgot password?",
+
+                        // ??? already have an account
                         CreateProfile = "Don\u0027t have an account?"
                     }
                 },
@@ -59,6 +63,44 @@ namespace SocialLogin.Services
                     Help = "/images/questionmark.jpg",
                     NumberOne = "/images/numberOne.jpg",
                     NumberTwo = "/images/numberTwo.jpg"
+                }
+            };
+        }
+
+        public async Task<SignUpContent> GetSignUpContent()
+        {
+            return new SignUpContent
+            {
+                SignInAuthenticators = new List<string> { "MyTicketek", "Facebook", "Google" },
+                CustomerOptInItems = new List<CustomerOptInItem>
+                {
+                    new CustomerOptInItem
+                    {
+                        Id = 1,
+                        Label = "Yes, tell me about pre-sales, discounts, offers, and the latest event news.",
+                        DefaultValue = false
+                    },
+                    new CustomerOptInItem
+                    {
+                        Id = 2,
+                        Label = "Yes, I would like to receive mobile alerts and special offers from Ticketek.",
+                        DefaultValue = false
+                    },
+                    new CustomerOptInItem
+                    {
+                        Id = 3,
+                        Label = "Yes! I want to join Purkle to earn eVouchers when responding to surveys, and receive special offers by email. Collection Statement, Terms And Conditions, Privacy Policy.",
+                        DefaultValue = false
+                    }
+                },
+                CustomerConsentItems = new List<CustomerConsentItem>
+                {
+                    new CustomerConsentItem
+                    {
+                        Id = 1,
+                        Label = "I have read and accept the terms of Ticketek's privacy policy and Collection Statement.",
+                        DefaultValue = false
+                    }
                 }
             };
         }

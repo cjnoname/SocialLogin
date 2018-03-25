@@ -1,3 +1,4 @@
+import { IException, isNoContent } from '../utils/error';
 // import { getUser } from "./security";
 
 const sharedHeaders = {
@@ -59,17 +60,29 @@ function del(path: string, data: any, options = {}) {
   return doFetch(path, data, HttpMethods.DELETE, options);
 }
 
-function doFetch(path: string, data: any, method: HttpMethods, options = {}) {
-  const response = fetch(buildURL(path), {
+async function doFetch(path: string, data: any, method: HttpMethods, options = {}) {
+  let request = {
     method: method,
     headers: {
       ...options,
       ...sharedHeaders
-    },
-    body: data ? JSON.stringify(data) : null
-  });
-
-  return response;
+    }
+  } as any;
+  if (method != HttpMethods.GET) {
+    request.body = data ? JSON.stringify(data) : null;
+  }
+  try {
+    const response = await fetch(buildURL(path), request);
+    if (!response.ok) {
+      throw { httpCode: response.status, message: await response.json() } as IException;
+    }
+    return isNoContent(response) ? undefined : await response.json();
+  } catch (e) {
+    if (e.httpCode) {
+      console.log(e.message);
+    }
+    console.log(e);
+  }
 }
 
 export default {

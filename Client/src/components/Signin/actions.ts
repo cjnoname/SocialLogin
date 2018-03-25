@@ -1,27 +1,20 @@
-import { Client } from '../../models/oAuth';
-import { getOAuthAction } from './workers/signInDetails';
+import { signInAction } from './workers/signIn';
 
 export enum ActionTypes {
-  GET_OAUTH_STARTED = 'GET_OAUTH_STARTED',
-  GET_OAUTH_SUCCEEDED = 'GET_OAUTH_SUCCEEDED',
-  GET_OAUTH_FAILED = 'GET_OAUTH_FAILED',
+  SIGNIN_STARTED = 'SIGNIN_STARTED',
+  SIGNIN_FAILED = 'SIGNIN_FAILED',
 }
 
-export interface GetOAuthStarted {
-  type: ActionTypes.GET_OAUTH_STARTED;
+export interface SignInStarted {
+  type: ActionTypes.SIGNIN_STARTED
 }
 
-export interface GetOAuthSucceeded {
-  type: ActionTypes.GET_OAUTH_SUCCEEDED;
-  client?: Client;
+export interface SignInFailed {
+  type: ActionTypes.SIGNIN_FAILED
 }
 
-export interface GetOAuthFailed {
-  type: ActionTypes.GET_OAUTH_FAILED;
-}
-
-export type KnownAction = GetOAuthStarted | GetOAuthSucceeded | GetOAuthFailed;
+export type KnownAction = SignInStarted | SignInFailed;
 
 export const actionCreators = {
-  getOAuthAction
+  signInAction
 };

@@ -1,5 +1,5 @@
 import { Record, List } from 'immutable';
-import { convertListToImmutable } from '../../utils/immutable';
+import { convertListToImmutable } from '../../../utils/immutable';
 
 interface Interface {
     text: string,

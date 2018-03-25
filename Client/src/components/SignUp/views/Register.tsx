@@ -28,6 +28,9 @@ const decorate = withStyles(({ mixins, spacing }) => ({
 const validate = (values: any) => {
   const errors: any = {};
   const requiredFields = [
+    'firstName',
+    'lastName',
+    'mobile',
     'email',
     'password'
   ];
@@ -44,19 +47,31 @@ const validate = (values: any) => {
   return errors;
 }
 
-const Login = decorate<Props>(({ dispatch, handleSubmit, error, classes, initial }) => {
+const Register = decorate<Props>(({ dispatch, handleSubmit, error, classes, initial }) => {
   const labels = initial.signInContent!.signIn!.labels!;
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <div className={classes.marginTop}>
-          <TextField required name="email" type="email" label={labels.email} fullWidth />
+          <TextField required name="firstName" label="First Name" fullWidth />
         </div>
         <div className={classes.marginTop}>
-          <TextField required name="password" type="password" label={labels.password} fullWidth />
+          <TextField required name="lastName" label="Last Name" fullWidth />
+        </div>
+        <div className={classes.marginTop}>
+          <TextField required name="mobile" label="Mobile" fullWidth />
+        </div>
+        <div className={classes.marginTop}>
+          <TextField required name="email" type="email" label="Email" fullWidth />
+        </div>
+        <div className={classes.marginTop}>
+          <TextField required name="confirmedEmail" label="Confirm Email" fullWidth />
+        </div>
+        <div className={classes.marginTop}>
+          <TextField required name="password" label="Password" fullWidth />
         </div>
         <div className={classes.button}>
-          <Button label={labels.signInButton} type="submit" fullWidth />
+          <Button label="Create Account" type="submit" fullWidth />
         </div>
       </form>
     </div>
@@ -68,4 +83,4 @@ export default reduxForm({
   validate
 })(connect(
   (state: ApplicationState) => state
-)(Login as any) as any) as any;
+)(Register as any) as any) as any;
