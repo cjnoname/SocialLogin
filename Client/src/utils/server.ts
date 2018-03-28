@@ -25,7 +25,7 @@ function buildURL(path: string) {
   if (path.indexOf("?") > 0) {
     return `api/${path}&nocache=${Math.random()}`;
   }
-  return `/api/${path}?nocache=${Math.random()}`;
+  return `api/${path}?nocache=${Math.random()}`;
 }
 
 function get(path: string, data?: any, options = {}) {

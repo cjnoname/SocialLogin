@@ -7,7 +7,8 @@ import { ApplicationState } from '../../store';
 import { Typography } from '../../shared/UI/Tabs';
 import Register from './views/Register';
 import { SignUpState, ISignUpRequest } from '../../models/signup';
-import { actionCreators } from './actions';
+import { SignInContent } from '../../models/initial';
+import { signUpActions } from './actions';
 import Spinner from '../../shared/UI/Spinner';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
@@ -16,7 +17,7 @@ const decorate = withStyles(({ mixins, spacing }) => ({
   parent: {
     height: '100%',
     width: '100%',
-    maxWidth: '500px'
+    maxWidth: 500
   },
   paper: mixins.gutters({
     paddingTop: 16,
@@ -24,30 +25,34 @@ const decorate = withStyles(({ mixins, spacing }) => ({
     marginTop: spacing.unit * 5
   }),
   marginTop20: {
-    marginTop: '20px'
+    marginTop: 20
   },
   text: {
-    marginTop: '20px',
+    marginTop: 20,
     width: '100%',
     textAlign: 'center'
   }
 }));
 
+interface PropItems {
+  isLoading: boolean,
+  signInContent: SignInContent
+}
+
 type Props =
-  ApplicationState
-  & typeof actionCreators
+  PropItems
+  & typeof signUpActions
   & RouteComponentProps<{}>;
 
 const SignUp = decorate(
-  class extends React.Component<Props & WithStyles<'parent' | 'paper' | 'marginTop20' | 'text'>, {}> {
+  class extends React.PureComponent<Props & WithStyles<'parent' | 'paper' | 'marginTop20' | 'text'>, {}> {
 
     submit = (values: ISignUpRequest) => {
       this.props.signUpAction(values);
     }
 
     public render() {
-      const { classes, signIn: { isLoading }, initial } = this.props;
-      const signInContent = initial.signInContent!;
+      const { classes, isLoading } = this.props;
       return <div className={classes.parent}>
         <Spinner loading={isLoading} />
         <Paper className={classes.paper} elevation={4}>
@@ -67,6 +72,8 @@ const SignUp = decorate(
 );
 
 export default connect(
-  (state: ApplicationState) => state,
-  actionCreators
+  (state: ApplicationState) => ({
+    isLoading: state.signUp.isLoading
+  }),
+  signUpActions
 )(SignUp as any) as any;

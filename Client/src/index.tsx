@@ -9,7 +9,7 @@ import configureStore from './configureStore';
 import { ApplicationState } from './store';
 import * as RoutesModule from './routes';
 let routes = RoutesModule.routes;
-import { actionCreators } from './components/Initial/actions';
+import { initialActions } from './components/Initial/actions';
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href')!;
@@ -22,7 +22,7 @@ const store = configureStore(history, initialState);
 async function renderApp() {
 
   // fetch Initial values
-  await store.dispatch(actionCreators.initialAction());
+  await store.dispatch(initialActions.initialAction());
 
   // This code starts up the React app when it runs in a browser. It sets up the routing configuration
   // and injects the app into a DOM element.

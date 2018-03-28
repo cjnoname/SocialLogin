@@ -12,39 +12,41 @@ import RestoreIcon from 'material-ui-icons/Restore';
 import FavoriteIcon from 'material-ui-icons/Favorite';
 import LocationOnIcon from 'material-ui-icons/LocationOn';
 
-const drawerWidth = 240;
 const decorate = withStyles(({ breakpoints, mixins, palette, spacing }) => ({
   root: {
-    flexGrow: 1,
-    height: '100vh',
+    height: '100%',
     zIndex: 1,
     overflow: 'hidden' as 'hidden',
     position: 'relative' as 'relative',
-    display: 'flex',
-    width: '100vw'
+    width: '100%'
   },
   appBar: {
     position: 'absolute' as 'absolute',
-    marginLeft: drawerWidth,
     width: '100%',
-    margin: 0
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: -17,
+    maxHeight: 60
   },
   toolbar: mixins.toolbar,
   content: {
     flexGrow: 1,
     backgroundColor: palette.background.default,
-    minHeight: '500px'
+    minHeight: `calc(100vh - 130px)`,
+    width: '100%',
+    display: 'inline-block',
+    paddingBottom: 30
   },
   logo: {
     maxHeight: 50
   },
   footer: {
     width: '100%',
-    position: 'fixed' as 'fixed',
     left: 0,
     bottom: 0,
     backgroundColor: '#444444',
-    height: '100px',
+    height: 100,
     color: '#ccc',
     textAlign: 'center',
     lineHeight: '100px',
@@ -82,19 +84,21 @@ const MyLayout = decorate(
 
       return (
         <div className={classes.root}>
-          <AppBar className={classes.appBar} >
-            <Toolbar>
-              <img src={`https://ticketek-assets.s3.amazonaws.com/images/ticketekMain.svg`} className={classes.logo} />
-            </Toolbar>
-          </AppBar>
+          <div>
+            <AppBar className={classes.appBar} >
+              <Toolbar>
+                <img src={`https://ticketek-assets.s3.amazonaws.com/images/ticketekMain.svg`} className={classes.logo} />
+              </Toolbar>
+            </AppBar>
+          </div>
           <div className={classes.content}>
             <div className={classes.toolbar} />
             <div className={classes.center}>
               {this.props.children}
             </div>
-            <div className={classes.footer}>
-              <a className={classes.text} href='http://premier.ticketek.com.au/Content/buyers/termsofsale.aspx'>Terms &amp; conditions</a> | <a className={classes.text} href='http://premier.ticketek.com.au/Content/buyers/privacy.aspx'>Privacy</a>
-            </div>
+          </div>
+          <div className={classes.footer}>
+            <a className={classes.text} href='http://premier.ticketek.com.au/Content/buyers/termsofsale.aspx'>Terms &amp; conditions</a> | <a className={classes.text} href='http://premier.ticketek.com.au/Content/buyers/privacy.aspx'>Privacy</a>
           </div>
         </div>
       );

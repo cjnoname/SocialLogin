@@ -34,6 +34,7 @@ namespace SocialLogin
             ["text/css"] = ResponseContentEncoding.Default,
             ["text/javascript"] = ResponseContentEncoding.Default,
             ["text/csv"] = ResponseContentEncoding.Default,
+            ["application/x-font-ttf"] = ResponseContentEncoding.Default,
 
             ["application/octet-stream"] = ResponseContentEncoding.Base64,
             ["image/png"] = ResponseContentEncoding.Base64,

@@ -78,7 +78,7 @@ namespace SocialLogin.Services
                     {
                         Id = 1,
                         Label = "Yes, tell me about pre-sales, discounts, offers, and the latest event news.",
-                        DefaultValue = false
+                        DefaultValue = true
                     },
                     new CustomerOptInItem
                     {

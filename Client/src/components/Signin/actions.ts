@@ -15,6 +15,6 @@ export interface SignInFailed {
 
 export type KnownAction = SignInStarted | SignInFailed;
 
-export const actionCreators = {
+export const signInActions = {
   signInAction
 };

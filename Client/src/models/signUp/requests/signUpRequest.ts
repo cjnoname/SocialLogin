@@ -4,4 +4,6 @@ export interface ISignUpRequest {
   mobile: string;
   email: string;
   password: string;
+  optInItems?: boolean[];
+  consentItems?: boolean[];
 }

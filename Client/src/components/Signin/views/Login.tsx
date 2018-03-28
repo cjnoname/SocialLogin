@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { ApplicationState } from '../../../store';
-import { InitialState } from '../../../models/initial';
+import { Labels } from '../../../models/initial/signIn';
 import { withStyles } from 'material-ui/styles';
 import TextField from '../../../shared/UI/Form/TextField';
 import Button from '../../../shared/UI/Button';
@@ -11,7 +11,7 @@ interface Props {
   dispatch: any,
   handleSubmit: any,
   error: any,
-  initial: InitialState
+  labels: Labels
 }
 
 const decorate = withStyles(({ mixins, spacing }) => ({
@@ -44,8 +44,7 @@ const validate = (values: any) => {
   return errors;
 }
 
-const Login = decorate<Props>(({ dispatch, handleSubmit, error, classes, initial }) => {
-  const labels = initial.signInContent!.signIn!.labels!;
+let Login = decorate<Props>(({ dispatch, handleSubmit, error, classes, labels }) => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -63,9 +62,13 @@ const Login = decorate<Props>(({ dispatch, handleSubmit, error, classes, initial
   );
 });
 
+Login = connect(
+  (state: ApplicationState) => ({
+    labels: state.initial.signInContent!.signIn!.labels!
+  })
+)(Login as any) as any;
+
 export default reduxForm({
   form: 'login',
   validate
-})(connect(
-  (state: ApplicationState) => state
-)(Login as any) as any) as any;
+})(Login as any) as any;

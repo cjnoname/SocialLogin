@@ -22,6 +22,6 @@ export interface InitialFailed {
 
 export type KnownAction = InitialStarted | InitialSucceeded | InitialFailed;
 
-export const actionCreators = {
+export const initialActions = {
   initialAction
 };

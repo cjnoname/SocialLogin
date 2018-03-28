@@ -2,12 +2,12 @@ import * as React from 'react';
 import { NavLink, RouteComponentProps, Redirect } from 'react-router-dom';
 import { withStyles, WithStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
-import { SubmissionError } from 'redux-form';
 import { ApplicationState } from '../../store';
 import { Typography } from '../../shared/UI/Tabs';
 import Login from './views/Login';
-import { SignInState, ISignInRequest } from '../../models/signIn';
-import { actionCreators } from './actions';
+import { ISignInRequest } from '../../models/signIn';
+import { SignInContent } from '../../models/initial/signIn'
+import { signInActions } from './actions';
 import Spinner from '../../shared/UI/Spinner';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
@@ -16,7 +16,7 @@ const decorate = withStyles(({ mixins, spacing }) => ({
   parent: {
     height: '100%',
     width: '100%',
-    maxWidth: '500px'
+    maxWidth: 500
   },
   paper: mixins.gutters({
     paddingTop: 16,
@@ -24,30 +24,34 @@ const decorate = withStyles(({ mixins, spacing }) => ({
     marginTop: spacing.unit * 5
   }),
   marginTop20: {
-    marginTop: '20px'
+    marginTop: 20
   },
   text: {
-    marginTop: '20px',
+    marginTop: 20,
     width: '100%',
     textAlign: 'center'
   }
 }));
 
+interface PropItems {
+  isLoading: boolean,
+  signInContent: SignInContent
+}
+
 type Props =
-  ApplicationState
-  & typeof actionCreators
+  PropItems
+  & typeof signInActions
   & RouteComponentProps<{}>;
 
 const SignIn = decorate(
-  class extends React.Component<Props & WithStyles<'parent' | 'paper' | 'marginTop20' | 'text'>, {}> {
+  class extends React.PureComponent<Props & WithStyles<'parent' | 'paper' | 'marginTop20' | 'text'>, {}> {
 
     submit = (values: ISignInRequest) => {
       this.props.signInAction(values);
     }
 
     public render() {
-      const { classes, signIn: { isLoading }, initial } = this.props;
-      const signInContent = initial.signInContent!;
+      const { classes, isLoading, signInContent } = this.props;
       return <div className={classes.parent}>
         <Spinner loading={isLoading} />
         <Paper className={classes.paper} elevation={4}>
@@ -70,6 +74,9 @@ const SignIn = decorate(
 );
 
 export default connect(
-  (state: ApplicationState) => state,
-  actionCreators
+  (state: ApplicationState) => ({
+    isLoading: state.signIn.isLoading,
+    signInContent: state.initial.signInContent!
+  }),
+  signInActions
 )(SignIn as any) as any;

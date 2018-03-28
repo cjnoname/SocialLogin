@@ -1,15 +1,15 @@
 import { Record, List } from 'immutable';
 
 interface Interface {
-    Id: string,
-    Label: string,
-    DefaultValue: string,
+    id: string,
+    label: string,
+    defaultValue: boolean,
 }
 
 const initialValue = Record<Interface>({
-    Id: '',
-    Label: '',
-    DefaultValue: '',
+    id: '',
+    label: '',
+    defaultValue: false,
 })
 
 export class CustomerOptInItem extends initialValue { }

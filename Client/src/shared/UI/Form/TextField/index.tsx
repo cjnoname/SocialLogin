@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as MaterialUI from 'material-ui';
+import TextField from 'material-ui/TextField';
 import { Field } from 'redux-form';
 
 interface Props {
@@ -14,7 +14,7 @@ const renderTextField = ({
   meta: { touched, error },
   ...custom
 }: any) => (
-    <MaterialUI.TextField
+    <TextField
       label={label}
       helperText={touched && error}
       {...input}
@@ -22,11 +22,11 @@ const renderTextField = ({
     />
   )
 
-const TextField = (props: Props) => {
+const TextFieldUI = (props: Props) => {
   const { ...rest } = props;
   return (
     <Field name={props.name} component={renderTextField} label={props.label} {...rest} />
   );
 }
 
-export default TextField;
+export default TextFieldUI;
