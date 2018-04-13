@@ -5,8 +5,8 @@ export interface IException {
 
 export const isBadRequest = (response: Response) => {
   return response.status === 400;
-}
+};
 
 export const isNoContent = (response: Response) => {
   return response.status === 204;
-}
+};

@@ -1,5 +1,5 @@
 import { Record, List } from 'immutable';
-import { convertListToImmutable } from '../../../utils/immutable';
+import { convertListToImmutable } from 'utils/immutable';
 import { Labels } from './';
 
 interface Interface {
@@ -16,7 +16,7 @@ const initialValue = Record<Interface>({
     subIntro: '',
     help: '',
     labels: new Labels()
-})
+});
 
 export class SignIn extends initialValue {
     constructor(args: any = {}) {
@@ -25,4 +25,3 @@ export class SignIn extends initialValue {
         }));
     }
 }
-

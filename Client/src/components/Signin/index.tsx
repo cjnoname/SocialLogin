@@ -1,16 +1,18 @@
 import * as React from 'react';
 import { NavLink, RouteComponentProps, Redirect } from 'react-router-dom';
+import * as classNames from 'classnames';
 import { withStyles, WithStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
-import { ApplicationState } from '../../store';
-import { Typography } from '../../shared/UI/Tabs';
-import Login from './views/Login';
-import { ISignInRequest } from '../../models/signIn';
-import { SignInContent } from '../../models/initial/signIn'
+import { ApplicationState } from 'store';
+import { Typography } from 'UI/Tabs';
+import Login from './views/SignInForm';
+import { ISignInRequest } from 'models/signIn';
+import { SignInContent } from 'models/initial/signIn';
 import { signInActions } from './actions';
-import Spinner from '../../shared/UI/Spinner';
+import Spinner from 'UI/Spinner';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
+import SocialButtons from 'shared/Components/SocialButtons';
 
 const decorate = withStyles(({ mixins, spacing }) => ({
   parent: {
@@ -19,9 +21,8 @@ const decorate = withStyles(({ mixins, spacing }) => ({
     maxWidth: 500
   },
   paper: mixins.gutters({
-    paddingTop: 16,
-    paddingBottom: 16,
-    marginTop: spacing.unit * 5
+    paddingTop: 25,
+    paddingBottom: 25,
   }),
   marginTop20: {
     marginTop: 20
@@ -29,46 +30,78 @@ const decorate = withStyles(({ mixins, spacing }) => ({
   text: {
     marginTop: 20,
     width: '100%',
-    textAlign: 'center'
+    textAlign: 'center' as 'center'
+  },
+  urlText: {
+    fontSize: '1rem',
+    fontWeight: 600 as 600,
+    '&:link': {
+      color: '#666',
+      textDecoration: 'none'
+    },
+    '&:visited': {
+      color: '#666',
+      textDecoration: 'none'
+    },
+    '&:focus': {
+      color: '#666',
+      textDecoration: 'none'
+    },
+    '&:hover': {
+      color: '#666',
+      textDecoration: 'underline'
+    },
+    '&:active': {
+      color: '#666',
+      textDecoration: 'underline'
+    }
+  },
+  forgotPassworUrl: {
+    fontSize: '0.875rem',
+    fontWeight: 400 as 400
   }
 }));
 
-interface PropItems {
+interface PropTypes {
   isLoading: boolean,
   signInContent: SignInContent
 }
 
 type Props =
-  PropItems
+  PropTypes
   & typeof signInActions
   & RouteComponentProps<{}>;
 
 const SignIn = decorate(
-  class extends React.PureComponent<Props & WithStyles<'parent' | 'paper' | 'marginTop20' | 'text'>, {}> {
+  class extends React.PureComponent<Props & WithStyles<'parent' | 'paper' | 'marginTop20' | 'text' | 'urlText' | 'forgotPassworUrl'>, {}> {
 
-    submit = (values: ISignInRequest) => {
+    public submit = (values: ISignInRequest) => {
+      // console.log(values);
       this.props.signInAction(values);
     }
 
     public render() {
       const { classes, isLoading, signInContent } = this.props;
-      return <div className={classes.parent}>
-        <Spinner loading={isLoading} />
-        <Paper className={classes.paper} elevation={4}>
-          <Typography variant="headline" component="h2">
-            Sign In
+      return (
+        <div className={classes.parent}>
+          <Spinner loading={isLoading} />
+          <Paper className={classes.paper} elevation={4}>
+            <Typography variant="headline" component="h2">
+              Sign In
           </Typography>
-          <Divider className={classes.marginTop20} />
-          <Login onSubmit={this.submit} />
-          <Divider className={classes.marginTop20} />
-          <div className={classes.text}>
-            <a href='https://premier.ticketek.com.au/membership/ForgotPassword.aspx'>{signInContent.signIn!.labels!.forgotPassword}</a>
-          </div>
-          <div className={classes.text}>
-            <NavLink to='/signup'>{signInContent.signIn!.labels!.createProfile}</NavLink>
-          </div>
-        </Paper>
-      </div>;
+            <SocialButtons />
+            <Divider className={classes.marginTop20} />
+            <Login onSubmit={this.submit} />
+            <Divider className={classes.marginTop20} />
+            <div className={classes.text}>
+              <a href="https://premier.ticketek.com.au/membership/ForgotPassword.aspx" className={classNames(classes.urlText, classes.forgotPassworUrl)}>{signInContent.signIn!.labels!.forgotPassword}</a>
+            </div>
+            <div className={classes.text}>
+              <NavLink to="/signup" className={classes.urlText}>{signInContent.signIn!.labels!.createProfile}</NavLink>
+            </div>
+          </Paper>
+        </div>
+      );
     }
   }
 );

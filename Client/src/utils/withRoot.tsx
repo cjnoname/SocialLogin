@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-import { getTheme } from '../shared/theme';
+import { getTheme } from 'shared/theme';
 
 // A theme with custom primary and secondary color.
 // It's optional.

@@ -4,9 +4,11 @@ import { Layout } from './components/Layout';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 
-export const routes = <Layout>
-  <Switch>
-    <Route exact path='(/|/signin)' component={SignIn} />
-    <Route path='/signup' component={SignUp} />
-  </Switch>
-</Layout>;
+export const routes = (
+  <Layout>
+    <Switch>
+      <Route exact path="(/|/signin)" component={SignIn} />
+      <Route path="/signup" component={SignUp} />
+    </Switch>
+  </Layout>
+);

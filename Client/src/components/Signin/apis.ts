@@ -1,3 +1,3 @@
-import server from '../../utils/server';
+import server from 'utils/server';
 
-export const signIn = (data: any) => server.post("signIn/signIn", data);
+export const signIn = (data: any) => server.post('signIn/signIn', data);

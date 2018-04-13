@@ -13,7 +13,7 @@ const decorate = withStyles(() => ({
 
 interface Props {
   loading: boolean,
-  size?: "xxs" | "xs" | "s" | "m" | "l" | "xl" | "xxl"
+  size?: 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl'
 }
 
 enum sizes {
@@ -31,11 +31,13 @@ const Spinner = decorate<Props>(({ loading, size, classes }) => {
   return (
     loading
       ?
-      <div className={classes.center}>
-        <CircularProgress
-          size={sizeNumber}
-        />
-      </div>
+      (
+        <div className={classes.center}>
+          <CircularProgress
+            size={sizeNumber}
+          />
+        </div>
+      )
       : null
   );
 });

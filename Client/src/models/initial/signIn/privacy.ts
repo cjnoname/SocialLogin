@@ -1,5 +1,5 @@
 import { Record, List } from 'immutable';
-import { convertListToImmutable } from '../../../utils/immutable';
+import { convertListToImmutable } from 'utils/immutable';
 import { Link } from './';
 
 interface Interface {
@@ -8,7 +8,7 @@ interface Interface {
 
 const initialValue = Record<Interface>({
     link: undefined
-})
+});
 
 export class Privacy extends initialValue {
     constructor(args: any = {}) {

@@ -3,15 +3,16 @@ import { NavLink, RouteComponentProps } from 'react-router-dom';
 import { withStyles, WithStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
 import { SubmissionError } from 'redux-form';
-import { ApplicationState } from '../../store';
-import { Typography } from '../../shared/UI/Tabs';
-import Register from './views/Register';
-import { SignUpState, ISignUpRequest } from '../../models/signup';
-import { SignInContent } from '../../models/initial';
+import { ApplicationState } from 'store';
+import { Typography } from 'UI/Tabs';
+import Register from './views/SignUpForm';
+import { SignUpState, ISignUpRequest } from 'models/signup';
+import { SignInContent } from 'models/initial';
 import { signUpActions } from './actions';
-import Spinner from '../../shared/UI/Spinner';
+import Spinner from 'UI/Spinner';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
+import SocialButtons from 'shared/Components/SocialButtons';
 
 const decorate = withStyles(({ mixins, spacing }) => ({
   parent: {
@@ -20,9 +21,8 @@ const decorate = withStyles(({ mixins, spacing }) => ({
     maxWidth: 500
   },
   paper: mixins.gutters({
-    paddingTop: 16,
-    paddingBottom: 16,
-    marginTop: spacing.unit * 5
+    paddingTop: 25,
+    paddingBottom: 25
   }),
   marginTop20: {
     marginTop: 20
@@ -30,43 +30,69 @@ const decorate = withStyles(({ mixins, spacing }) => ({
   text: {
     marginTop: 20,
     width: '100%',
-    textAlign: 'center'
-  }
+    textAlign: 'center' as 'center'
+  },
+  urlText: {
+    fontSize: '1rem',
+    fontWeight: 600 as 600,
+    '&:link': {
+      color: '#666',
+      textDecoration: 'none'
+    },
+    '&:visited': {
+      color: '#666',
+      textDecoration: 'none'
+    },
+    '&:focus': {
+      color: '#666',
+      textDecoration: 'none'
+    },
+    '&:hover': {
+      color: '#666',
+      textDecoration: 'underline'
+    },
+    '&:active': {
+      color: '#666',
+      textDecoration: 'underline'
+    }
+  },
 }));
 
-interface PropItems {
+interface PropTypes {
   isLoading: boolean,
   signInContent: SignInContent
 }
 
 type Props =
-  PropItems
+  PropTypes
   & typeof signUpActions
   & RouteComponentProps<{}>;
 
 const SignUp = decorate(
-  class extends React.PureComponent<Props & WithStyles<'parent' | 'paper' | 'marginTop20' | 'text'>, {}> {
-
-    submit = (values: ISignUpRequest) => {
-      this.props.signUpAction(values);
-    }
-
+  class extends React.PureComponent<Props & WithStyles<'parent' | 'paper' | 'marginTop20' | 'text' | 'urlText'>, {}> {
     public render() {
       const { classes, isLoading } = this.props;
-      return <div className={classes.parent}>
-        <Spinner loading={isLoading} />
-        <Paper className={classes.paper} elevation={4}>
-          <Typography variant="headline" component="h2">
-            Create an account
+      return (
+        <div className={classes.parent}>
+          <Spinner loading={isLoading} />
+          <Paper className={classes.paper} elevation={4}>
+            <Typography variant="headline" component="h2">
+              Create an account
           </Typography>
-          <Divider className={classes.marginTop20} />
-          <Register onSubmit={this.submit} />
-          <Divider className={classes.marginTop20} />
-          <div className={classes.text}>
-            <NavLink to='/signin'>Already have an account?</NavLink>
-          </div>
-        </Paper>
-      </div>;
+            <SocialButtons />
+            <Divider className={classes.marginTop20} />
+            <Register onSubmit={this.submit} />
+            <Divider className={classes.marginTop20} />
+            <div className={classes.text}>
+              <NavLink to="/signin" className={classes.urlText}>Already have an account?</NavLink>
+            </div>
+          </Paper>
+        </div>
+      );
+    }
+
+    private submit = (values: ISignUpRequest) => {
+      this.props.signUpAction(values);
     }
   }
 );

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { withStyles, WithStyles } from 'material-ui/styles';
-import { withRoot } from '../utils/withRoot';
+import * as classNames from 'classnames';
+import { withRoot } from 'utils/withRoot';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Drawer from 'material-ui/Drawer';
@@ -33,10 +34,13 @@ const decorate = withStyles(({ breakpoints, mixins, palette, spacing }) => ({
   content: {
     flexGrow: 1,
     backgroundColor: palette.background.default,
-    minHeight: `calc(100vh - 130px)`,
+    minHeight: `calc(100vh - 180px)`,
     width: '100%',
-    display: 'inline-block',
-    paddingBottom: 30
+    display: 'inline-block'
+  },
+  contentPadding: {
+    paddingTop: spacing.unit * 5,
+    paddingBottom: spacing.unit * 5
   },
   logo: {
     maxHeight: 50
@@ -48,37 +52,48 @@ const decorate = withStyles(({ breakpoints, mixins, palette, spacing }) => ({
     backgroundColor: '#444444',
     height: 100,
     color: '#ccc',
-    textAlign: 'center',
+    textAlign: 'center' as 'center',
     lineHeight: '100px',
     verticalAlign: 'middle'
   },
-  text: {
+  footerText: {
     color: '#ccc',
-    '&:link text': {
-      color: '#ccc'
+    '&:link': {
+      color: '#ccc',
+      textDecoration: 'none'
     },
-    '&:visited text': {
-      color: '#ccc'
+    '&:visited': {
+      color: '#ccc',
+      textDecoration: 'none'
     },
-    '&:focus text': {
-      color: '#ccc'
+    '&:focus': {
+      color: '#ccc',
+      textDecoration: 'none'
     },
-    '&:hover text': {
-      color: '#ccc'
+    '&:hover': {
+      color: '#ccc',
+      textDecoration: 'underline'
     },
-    '&:active text': {
-      color: '#ccc'
+    '&:active': {
+      color: '#ccc',
+      textDecoration: 'underline'
     }
   },
   center: {
     display: 'flex',
     justifyContent: 'center' as 'center',
     height: '100%'
+  },
+  '@media (max-width: 28rem)': {
+    contentPadding: {
+      paddingTop: 0,
+      paddingBottom: 0
+    }
   }
 }));
 
 const MyLayout = decorate(
-  class extends React.Component<WithStyles<'root' | 'appBar' | 'toolbar' | 'content' | 'logo' | 'footer' | 'text' | 'center'>, {}> {
+  class extends React.Component<WithStyles<'root' | 'appBar' | 'toolbar' | 'content' | 'logo' | 'footer' | 'footerText' | 'center' | 'contentPadding' | '@media (max-width: 28rem)'>, {}> {
     public render() {
       const { classes } = this.props;
 
@@ -91,14 +106,14 @@ const MyLayout = decorate(
               </Toolbar>
             </AppBar>
           </div>
-          <div className={classes.content}>
+          <div className={classNames(classes.content, classes.contentPadding)}>
             <div className={classes.toolbar} />
             <div className={classes.center}>
               {this.props.children}
             </div>
           </div>
           <div className={classes.footer}>
-            <a className={classes.text} href='http://premier.ticketek.com.au/Content/buyers/termsofsale.aspx'>Terms &amp; conditions</a> | <a className={classes.text} href='http://premier.ticketek.com.au/Content/buyers/privacy.aspx'>Privacy</a>
+            <a className={classes.footerText} href="http://premier.ticketek.com.au/Content/buyers/termsofsale.aspx">Terms &amp; conditions</a> | <a className={classes.footerText} href="http://premier.ticketek.com.au/Content/buyers/privacy.aspx">Privacy</a>
           </div>
         </div>
       );

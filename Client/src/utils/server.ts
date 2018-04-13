@@ -1,17 +1,17 @@
-import { IException, isNoContent } from '../utils/error';
-// import { getUser } from "./security";
+import { IException, isNoContent } from 'utils/error';
+// import { getUser } from './security';
 
 const sharedHeaders = {
-  Accept: "application/json",
-  "Content-Type": "application/json"
-}
+  Accept: 'application/json',
+  'Content-Type': 'application/json'
+};
 
 enum HttpMethods {
-  GET = "GET",
-  POST = "POST",
-  PUT = "PUT",
-  PATCH = "PATCH",
-  DELETE = "DELETE"
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+  PATCH = 'PATCH',
+  DELETE = 'DELETE'
 }
 
 //   const user = getUser();
@@ -22,7 +22,7 @@ enum HttpMethods {
 // }
 
 function buildURL(path: string) {
-  if (path.indexOf("?") > 0) {
+  if (path.indexOf('?') > 0) {
     return `api/${path}&nocache=${Math.random()}`;
   }
   return `api/${path}?nocache=${Math.random()}`;
@@ -40,12 +40,12 @@ function getQueryString(params: any) {
       if (Array.isArray(params[k])) {
         return params[k]
           .map((val: any) => `${encodeURIComponent(k)}[]=${encodeURIComponent(val)}`)
-          .join('&')
+          .join('&');
       }
 
-      return `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`
+      return `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`;
     })
-    .join('&')
+    .join('&');
 }
 
 function post(path: string, data: any, options = {}) {
@@ -61,27 +61,28 @@ function del(path: string, data: any, options = {}) {
 }
 
 async function doFetch(path: string, data: any, method: HttpMethods, options = {}) {
-  let request = {
-    method: method,
+  const request = {
+    method,
     headers: {
       ...options,
       ...sharedHeaders
     }
   } as any;
-  if (method != HttpMethods.GET) {
+  if (method !== HttpMethods.GET) {
     request.body = data ? JSON.stringify(data) : null;
   }
   try {
     const response = await fetch(buildURL(path), request);
     if (!response.ok) {
-      throw { httpCode: response.status, message: await response.json() } as IException;
+      const error: IException = { httpCode: response.status, message: await response.json() };
+      throw error;
     }
     return isNoContent(response) ? undefined : await response.json();
   } catch (e) {
     if (e.httpCode) {
-      console.log(e.message);
+      // console.log(e.message);
     }
-    console.log(e);
+    // console.log(e);
   }
 }
 

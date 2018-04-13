@@ -10,6 +10,5 @@ const initialValue = Record<Interface>({
     id: '',
     label: '',
     defaultValue: false,
-})
-
+});
 export class CustomerConsentItem extends initialValue { }

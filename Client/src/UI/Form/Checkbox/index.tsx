@@ -1,7 +1,6 @@
 import * as React from 'react';
-import Checkbox from 'material-ui/Checkbox';
 import { Field } from 'redux-form';
-import { FormControlLabel } from 'material-ui/Form';
+import CheckboxAdornment from './CheckboxAdornment';
 
 interface Props {
   name: string,
@@ -9,24 +8,21 @@ interface Props {
   [rest: string]: any
 }
 
-const renderCheckbox = ({ input, label }: any) => {
-  return (<FormControlLabel
-    control={
-      <Checkbox
-        defaultChecked={input.value === true}
-        onChange={input.onChange}
-        color="primary"
-      />
-    }
+const renderCheckbox = ({ input, label, meta: { touched, error, invalid }, ...custom }: any) => (
+  <CheckboxAdornment
     label={label}
-  />)
-}
+    invalid={invalid}
+    error={touched && error}
+    input={input}
+    {...custom}
+  />
+);
 
 const CheckboxUI = (props: Props) => {
   const { ...rest } = props;
   return (
     <Field name={props.name} component={renderCheckbox} label={props.label} {...rest} />
   );
-}
+};
 
 export default CheckboxUI;

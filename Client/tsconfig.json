@@ -10,12 +10,29 @@
     "skipDefaultLibCheck": true,
     "strict": true,
     "lib": [
-      "es2017",
+      "es2018",
       "dom"
     ],
     "types": [
       "webpack-env"
-    ]
+    ],
+    "paths": {
+      "models/*": [
+        "src/models/*"
+      ],
+      "utils/*": [
+        "src/utils/*"
+      ],
+      "UI/*": [
+        "src/UI/*"
+      ],
+      "shared/*": [
+        "src/shared/*"
+      ],
+      "store": [
+        "src/store"
+      ]
+    }
   },
   "exclude": [
     "bin",

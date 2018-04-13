@@ -1,10 +1,10 @@
 import { createStore, applyMiddleware, compose, combineReducers, GenericStoreEnhancer, Store, StoreEnhancerStoreCreator, ReducersMapObject } from 'redux';
 import thunk from 'redux-thunk';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
-import * as StoreModule from './store';
-import { ApplicationState, reducers } from './store';
+import * as StoreModule from 'store';
+import { ApplicationState, reducers } from 'store';
 import { History } from 'history';
-import { reducer as formReducer } from 'redux-form'
+import { reducer as formReducer } from 'redux-form';
 
 export default function configureStore(history: History, initialState?: ApplicationState) {
   // Build middleware. These are functions that can process the actions before they reach the store.
@@ -22,8 +22,8 @@ export default function configureStore(history: History, initialState?: Applicat
 
   // Enable Webpack hot module replacement for reducers
   if (module.hot) {
-    module.hot.accept('./store', () => {
-      const nextRootReducer = require<typeof StoreModule>('./store');
+    module.hot.accept('store', () => {
+      const nextRootReducer = require<typeof StoreModule>('store');
       store.replaceReducer(buildRootReducer(nextRootReducer.reducers));
     });
   }

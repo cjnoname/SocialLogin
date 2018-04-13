@@ -1,5 +1,5 @@
 import { Record, List } from 'immutable';
-import { convertListToImmutable } from '../../../utils/immutable';
+import { convertListToImmutable } from 'utils/immutable';
 import { Privacy } from './';
 
 interface Interface {
@@ -12,7 +12,7 @@ const initialValue = Record<Interface>({
     purchase: '',
     termsAndCondition: '',
     privacy: undefined
-})
+});
 
 export class Footer extends initialValue {
     constructor(args: any = {}) {

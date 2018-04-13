@@ -1,3 +1,3 @@
-import server from '../../utils/server';
+import server from 'utils/server';
 
-export const getInitialValues = () => server.get("Initial/GetInitialValues");
+export const getInitialValues = () => server.get('Initial/GetInitialValues');

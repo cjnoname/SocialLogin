@@ -1,4 +1,4 @@
-import { Initial } from '../../models/initial';
+import { Initial } from 'models/initial';
 import { initialAction } from './workers/initial';
 
 export enum ActionTypes {

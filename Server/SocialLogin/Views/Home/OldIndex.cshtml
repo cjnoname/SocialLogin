@@ -1,0 +1,67 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Ticketek</title>
+    <base href="~/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#00ACED">
+    <link rel="shortcut icon" href="~/images/favicon.ico">
+
+    <!-- Google Platform API -->
+    <script src="https://apis.google.com/js/platform.js?onload=googleAsyncInit" async defer></script>
+    <meta name="google-signin-client_id" content="964921356567-fld8tf83blb5ojccj9j8v64gtrtpp50l.apps.googleusercontent.com">
+
+    <script>
+        window.API_BASE = '@Url.Content("~")';
+    </script>
+
+    <script>
+        window.googleAsyncInit = function () {
+            var event = new Event('googleplatforminit', { bubbles: true });
+            document.dispatchEvent(event);
+        }
+    </script>
+
+    <!-- Facebook JavaScript API -->
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '2075317132703115',
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: 'v2.11'
+            });
+
+            var event = new Event('facebookplatforminit', { bubbles: true });
+            document.dispatchEvent(event);
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            js.async = true;
+            js.defer = true;
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107076161-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-107076161-2');
+    </script>
+    <link href="~/dist/styles.css" rel="stylesheet" asp-append-version="true">
+</head>
+<body>
+    <div id="app-root"></div>
+    <script type="text/javascript" src="~/dist/main.js" asp-append-version="true"></script>
+</body>
+</html>

@@ -7,7 +7,7 @@
     <title>Ticketek</title>
     <base href="~/" />
     <link rel="shortcut icon" href="~/images/favicon.ico">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+    <link rel="stylesheet" href="~/css//global.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     <!-- add polyfil and fetch to support IE11  -->
@@ -15,7 +15,42 @@
     <script src="//cdn.jsdelivr.net/bluebird/3.5.0/bluebird.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.js"></script>
 </head>
-<body style="margin:0">
+<body>
+    <script src="https://apis.google.com/js/platform.js?onload=googleAsyncInit" async defer></script>
+    <script>
+        window.googleAsyncInit = function () {
+            gapi.load('auth2', function() {
+                window.GoogleAuth = gapi.auth2.init({
+                    client_id: '859486215094-kbtpd0alg7adn9o12vqg9e3d63qst45n.apps.googleusercontent.com'
+                });
+                document.dispatchEvent(new Event('googleinit', { bubbles: true }));
+            });
+        }
+    </script>
+
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '203281623780299',
+                cookie: true,
+                xfbml: true,
+                version: 'v2.12',
+                status: true
+            });
+            FB.AppEvents.logPageView();
+            window.FB = FB;
+            document.dispatchEvent(new Event('facebookinit', { bubbles: true }));
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
     <script>
         window.theme = 'main';
         window.API_BASE = '@Url.Content("~")';

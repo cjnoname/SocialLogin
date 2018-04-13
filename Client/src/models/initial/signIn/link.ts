@@ -1,5 +1,5 @@
 import { Record, List } from 'immutable';
-import { convertListToImmutable } from '../../../utils/immutable';
+import { convertListToImmutable } from 'utils/immutable';
 
 interface Interface {
     text: string,
@@ -9,6 +9,6 @@ interface Interface {
 const initialValue = Record<Interface>({
     text: '',
     href: ''
-})
+});
 
 export class Link extends initialValue { }

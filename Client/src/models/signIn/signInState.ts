@@ -6,6 +6,6 @@ interface Interface {
 
 const initialValue = Record<Interface>({
     isLoading: false
-})
+});
 
 export class SignInState extends initialValue { }

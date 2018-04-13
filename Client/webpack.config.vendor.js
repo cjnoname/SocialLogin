@@ -13,11 +13,6 @@ module.exports = (env, argv) => {
       filename: '[name].js',
       library: '[name]_[hash]'
     },
-    module: {
-      rules: [
-        { test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/, use: 'url-loader?limit=100000' }
-      ]
-    },
     entry: {
       vendor: [
         'history',

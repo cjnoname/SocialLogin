@@ -2,18 +2,21 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { FormGroup } from 'material-ui/Form';
-import { ApplicationState } from '../../../store';
-import { CustomerOptInItem, CustomerConsentItem, SignUpContent } from '../../../models/initial';
+import { ApplicationState } from 'store';
+import { CustomerOptInItem, CustomerConsentItem, SignUpContent } from 'models/initial';
+import { ISignUpRequest } from 'models/signUp';
 import { withStyles } from 'material-ui/styles';
-import TextField from '../../../shared/UI/Form/TextField';
-import Checkbox from '../../../shared/UI/Form/Checkbox';
-import Button from '../../../shared/UI/Button';
-import { phoneNumber } from '../../../utils/formValidation'
+import { TextField, Password, Checkbox } from 'UI/Form';
+import { Button } from 'UI/Button';
+import { phoneNumber } from 'utils/formValidation';
 
 interface Props {
   dispatch: any,
-  handleSubmit: any,
+  handleSubmit: () => {},
   error: any,
+  submitting: boolean,
+  pristine: boolean,
+  invalid: boolean,
   signUpContent: SignUpContent
 }
 
@@ -22,13 +25,16 @@ const decorate = withStyles(({ mixins, spacing }) => ({
     marginTop: '1em'
   },
   button: {
-    textAlign: 'right',
+    textAlign: 'right' as 'right',
     width: '100%',
     marginTop: '2em'
+  },
+  buttonColor: {
+    color: '#fff'
   }
 }));
 
-const validate = (values: any) => {
+const validate = (values: ISignUpRequest) => {
   const errors: any = {};
   const requiredFields = [
     'firstName',
@@ -42,19 +48,27 @@ const validate = (values: any) => {
     if (!values[field]) {
       errors[field] = 'Required';
     }
-  })
+  });
   if (
     values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
   ) {
     errors.email = 'Invalid email address';
   }
-  if (values.confirmedEmail && values.email && values.confirmedEmail !== values.email) {
-    errors.confirmedEmail = 'Confirmation email must match the email you entered above'
+  if (values.confirmedEmail && values.email && values.confirmedEmail.toLowerCase() !== values.email.toLowerCase()) {
+    errors.confirmedEmail = 'Confirmation email must match the email you entered above';
+  }
+  if (values.consentItems) {
+    errors.consentItems = [];
+    (values.consentItems!).forEach(item => {
+      if (!item) {
+        errors.consentItems[values.consentItems!.indexOf(item)] = 'Required';
+      }
+    });
   }
   return errors;
-}
+};
 
-let Register = decorate<Props>(({ dispatch, handleSubmit, error, classes, signUpContent }) => {
+let Register = decorate<Props>(({ dispatch, handleSubmit, error, classes, signUpContent, submitting, pristine, invalid }) => {
   const optInItems = signUpContent.customerOptInItems!;
   const consentItems = signUpContent.customerConsentItems!;
 
@@ -77,7 +91,7 @@ let Register = decorate<Props>(({ dispatch, handleSubmit, error, classes, signUp
           <TextField required name="confirmedEmail" label="Confirm Email" fullWidth />
         </div>
         <div className={classes.marginTop}>
-          <TextField required name="password" label="Password" type="password" fullWidth />
+          <Password required name="password" label="Password" fullWidth />
         </div>
 
         <FormGroup>
@@ -91,7 +105,7 @@ let Register = decorate<Props>(({ dispatch, handleSubmit, error, classes, signUp
             })}
           </div>
           <div className={classes.marginTop}>
-            {consentItems.map((consentItem: CustomerOptInItem) => {
+            {consentItems.map((consentItem: CustomerConsentItem) => {
               return (
                 <div className={classes.marginTop} key={`consentItems${consentItems.indexOf(consentItem)}`}>
                   <Checkbox label={consentItem.label} name={`consentItems[${consentItems.indexOf(consentItem)}]`} required />
@@ -102,7 +116,7 @@ let Register = decorate<Props>(({ dispatch, handleSubmit, error, classes, signUp
         </FormGroup>
 
         <div className={classes.button}>
-          <Button label="Create Account" type="submit" fullWidth />
+          <Button label="Create Account" type="submit" className={classes.buttonColor} disabled={submitting || pristine || invalid} fullWidth />
         </div>
       </form>
     </div>
@@ -111,7 +125,9 @@ let Register = decorate<Props>(({ dispatch, handleSubmit, error, classes, signUp
 
 Register = reduxForm({
   form: 'register',
-  validate
+  validate,
+  enableReinitialize: true,
+  touchOnChange: true
 })(Register as any) as any;
 
 export default connect(
@@ -122,4 +138,4 @@ export default connect(
     },
     signUpContent: state.initial.signUpContent!
   })
-)(Register as any) as any
+)(Register as any) as any;

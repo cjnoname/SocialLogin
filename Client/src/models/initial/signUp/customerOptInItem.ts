@@ -10,6 +10,6 @@ const initialValue = Record<Interface>({
     id: '',
     label: '',
     defaultValue: false,
-})
+});
 
 export class CustomerOptInItem extends initialValue { }

@@ -1,5 +1,5 @@
 import { Record, List } from 'immutable';
-import { convertListToImmutable } from '../../../utils/immutable';
+import { convertListToImmutable } from 'utils/immutable';
 
 interface Interface {
     email: string,
@@ -21,6 +21,6 @@ const initialValue = Record<Interface>({
     signInButton: '',
     forgotPassword: '',
     createProfile: ''
-})
+});
 
 export class Labels extends initialValue { }

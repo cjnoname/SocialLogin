@@ -1,8 +1,8 @@
-import { InitialState } from './models/initial';
+import { InitialState } from 'models/initial';
 import { InitialReducer } from './components/Initial/reducers';
-import { SignInState } from './models/signIn';
+import { SignInState } from 'models/signIn';
 import { SignInReducer } from './components/SignIn/reducers';
-import { SignUpState } from './models/signUp';
+import { SignUpState } from 'models/signUp';
 import { SignUpReducer } from './components/SignUp/reducers';
 
 // The top-level state object

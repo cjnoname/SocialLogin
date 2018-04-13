@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button } from 'material-ui';
 
 interface Props {
-  label: string,
+  label?: string,
   [rest: string]: any
 }
 
@@ -11,4 +11,4 @@ export default (props: Props) => {
   return (
     <Button color="primary" variant="raised" {...rest}>{props.label}</Button>
   );
-}
+};

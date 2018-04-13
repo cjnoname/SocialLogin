@@ -1,7 +1,7 @@
-import { AppThunkAction } from '../../../store';
+import { AppThunkAction } from 'store';
 import { KnownAction, ActionTypes } from '../actions';
-import * as Api from "../apis";
-import { SignInState, ISignInRequest } from '../../../models/signIn';
+import * as Api from '../apis';
+import { SignInState, ISignInRequest } from 'models/signIn';
 
 export const signInAction = (request: ISignInRequest): AppThunkAction<KnownAction> => async (dispatch, getState) => {
   try {
@@ -9,15 +9,14 @@ export const signInAction = (request: ISignInRequest): AppThunkAction<KnownActio
     const url = await Api.signIn(request);
     if (url) {
       window.location.replace(url);
-    }
-    else {
-      throw "Url is empty";
+    } else {
+      throw 'Url is empty';
     }
   } catch (e) {
     dispatch({ type: ActionTypes.SIGNIN_FAILED });
   }
-}
+};
 
-export const signInStarted = (state: SignInState) => state.set("isLoading", true);
+export const signInStarted = (state: SignInState) => state.set('isLoading', true);
 
-export const signInFailed = (state: SignInState) => state.set("isLoading", false);
+export const signInFailed = (state: SignInState) => state.set('isLoading', false);
