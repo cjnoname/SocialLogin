@@ -12,17 +12,17 @@ const Component = React.Component;
 function withRoot(Component: any) {
   function WithRoot(props: any) {
     return (
-      <MuiThemeProvider theme={getTheme(new Theme((window as any).theme))}>
+      <MuiThemeProvider theme={getTheme(props.theme)}>
         <Component {...props} />
       </MuiThemeProvider>
     );
   }
-  return WithRoot;
-  // return connect(
-  //   (state: ApplicationState) => ({
-  //     theme: state.initial.values!.theme
-  //   })
-  // )(WithRoot);
+  // return WithRoot;
+  return connect(
+    (state: ApplicationState) => ({
+      theme: state.initial.values!.theme
+    })
+  )(WithRoot);
 }
 
 export { withRoot };

@@ -18,7 +18,7 @@ export class Values extends initialValue {
     super(Object.assign({}, args as Interface, {
       signInContent: args.signInContent && new SignInContent(args.signInContent),
       signUpContent: args.signUpContent && new SignUpContent(args.signUpContent),
-      // theme: args.theme && new Theme(args.theme)
+      theme: args.theme && new Theme(args.theme)
     }));
   }
 }

@@ -15,7 +15,7 @@ export const initialAction = (): AppThunkAction<KnownAction> => async (dispatch)
 export const initialStarted = (state: InitialState) => state.set('isLoading', true);
 
 export const initialSucceeded = (state: InitialState, action: InitialSucceeded) => {
-  (window as any).theme = action.values!.theme;
+  // (window as any).theme = action.values!.theme;
   return state
     .set('isLoading', false)
     .set('values', action.values ? new Values(action.values) : undefined);
