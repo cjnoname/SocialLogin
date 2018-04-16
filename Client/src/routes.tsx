@@ -5,10 +5,10 @@ import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 
 export const routes = (
-  <Layout>
-    <Switch>
+  <Switch>
+    <Layout>
       <Route exact path="(/|/signin)" component={SignIn} />
       <Route path="/signup" component={SignUp} />
-    </Switch>
-  </Layout>
+    </Layout>
+  </Switch>
 );
