@@ -7,5 +7,6 @@ namespace SocialLogin.Interfaces
     {
         Task<SignInContent> GetSignInContent();
         Task<SignUpContent> GetSignUpContent();
+        Task<Theme> GetTheme();
     }
 }

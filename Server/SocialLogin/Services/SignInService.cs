@@ -104,5 +104,14 @@ namespace SocialLogin.Services
                 }
             };
         }
+
+        public async Task<Theme> GetTheme()
+        {
+            return new Theme
+            {
+               PrimaryColor = "#FFA07A",
+               SecondaryColor = "#1badeb"
+            };
+        }
     }
 }

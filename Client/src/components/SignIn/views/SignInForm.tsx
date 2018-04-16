@@ -51,19 +51,17 @@ const validate = (values: any) => {
 };
 
 let Login = decorate<Props>(({ dispatch, handleSubmit, pristine, invalid, submitting, error, classes, labels }) => (
-  <div>
-    <form onSubmit={handleSubmit}>
-      <div className={classes.marginTop}>
-        <TextField required name="email" type="email" label={labels.email} fullWidth />
-      </div>
-      <div className={classes.marginTop}>
-        <Password required name="password" label={labels.password} fullWidth />
-      </div>
-      <div className={classes.button}>
-        <Button label={labels.signInButton} type="submit" className={classes.buttonColor} disabled={submitting || pristine || invalid} fullWidth />
-      </div>
-    </form>
-  </div>
+  <form onSubmit={handleSubmit}>
+    <div className={classes.marginTop}>
+      <TextField required name="email" type="email" label={labels.email} fullWidth />
+    </div>
+    <div className={classes.marginTop}>
+      <Password required name="password" label={labels.password} fullWidth />
+    </div>
+    <div className={classes.button}>
+      <Button label={labels.signInButton} type="submit" className={classes.buttonColor} disabled={submitting || pristine || invalid} fullWidth />
+    </div>
+  </form>
 ));
 
 Login = reduxForm({
@@ -74,6 +72,6 @@ Login = reduxForm({
 
 export default connect(
   (state: ApplicationState) => ({
-    labels: state.initial.signInContent!.signIn!.labels!
+    labels: state.initial.values!.signInContent!.signIn!.labels!
   })
 )(Login as any) as any;

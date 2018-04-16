@@ -41,9 +41,9 @@ const SimpleTable = <T extends {}>(props: Props<T>) => {
       )
       :
       (
-        <div>
+        <>
           No Record
-        </div>
+        </>
       )
   );
 };

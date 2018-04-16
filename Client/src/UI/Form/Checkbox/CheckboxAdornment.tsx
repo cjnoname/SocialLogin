@@ -33,7 +33,6 @@ const CheckboxAdornment = decorate<Props>(({ input, label, invalid, error, class
     />
     <FormHelperText error={invalid}>{error}</FormHelperText>
   </FormControl>
-)
-);
+));
 
 export default CheckboxAdornment;

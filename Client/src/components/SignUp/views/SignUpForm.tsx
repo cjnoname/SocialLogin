@@ -73,53 +73,51 @@ let Register = decorate<Props>(({ dispatch, handleSubmit, error, classes, signUp
   const consentItems = signUpContent.customerConsentItems!;
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div className={classes.marginTop}>
-          <TextField required name="firstName" label="First Name" fullWidth />
-        </div>
-        <div className={classes.marginTop}>
-          <TextField required name="lastName" label="Last Name" fullWidth />
-        </div>
-        <div className={classes.marginTop}>
-          <TextField required validate={phoneNumber} name="mobile" label="Mobile" fullWidth />
-        </div>
-        <div className={classes.marginTop}>
-          <TextField required name="email" type="email" label="Email" fullWidth />
-        </div>
-        <div className={classes.marginTop}>
-          <TextField required name="confirmedEmail" label="Confirm Email" fullWidth />
-        </div>
-        <div className={classes.marginTop}>
-          <Password required name="password" label="Password" fullWidth />
-        </div>
+    <form onSubmit={handleSubmit}>
+      <div className={classes.marginTop}>
+        <TextField required name="firstName" label="First Name" fullWidth />
+      </div>
+      <div className={classes.marginTop}>
+        <TextField required name="lastName" label="Last Name" fullWidth />
+      </div>
+      <div className={classes.marginTop}>
+        <TextField required validate={phoneNumber} name="mobile" label="Mobile" fullWidth />
+      </div>
+      <div className={classes.marginTop}>
+        <TextField required name="email" type="email" label="Email" fullWidth />
+      </div>
+      <div className={classes.marginTop}>
+        <TextField required name="confirmedEmail" label="Confirm Email" fullWidth />
+      </div>
+      <div className={classes.marginTop}>
+        <Password required name="password" label="Password" fullWidth />
+      </div>
 
-        <FormGroup>
-          <div className={classes.marginTop}>
-            {optInItems.map((optInItem: CustomerOptInItem) => {
-              return (
-                <div className={classes.marginTop} key={`optInItems${optInItems.indexOf(optInItem)}`}>
-                  <Checkbox label={optInItem.label} name={`optInItems[${optInItems.indexOf(optInItem)}]`} />
-                </div>
-              );
-            })}
-          </div>
-          <div className={classes.marginTop}>
-            {consentItems.map((consentItem: CustomerConsentItem) => {
-              return (
-                <div className={classes.marginTop} key={`consentItems${consentItems.indexOf(consentItem)}`}>
-                  <Checkbox label={consentItem.label} name={`consentItems[${consentItems.indexOf(consentItem)}]`} required />
-                </div>
-              );
-            })}
-          </div>
-        </FormGroup>
-
-        <div className={classes.button}>
-          <Button label="Create Account" type="submit" className={classes.buttonColor} disabled={submitting || pristine || invalid} fullWidth />
+      <FormGroup>
+        <div className={classes.marginTop}>
+          {optInItems.map((optInItem: CustomerOptInItem) => {
+            return (
+              <div className={classes.marginTop} key={`optInItems${optInItems.indexOf(optInItem)}`}>
+                <Checkbox label={optInItem.label} name={`optInItems[${optInItems.indexOf(optInItem)}]`} />
+              </div>
+            );
+          })}
         </div>
-      </form>
-    </div>
+        <div className={classes.marginTop}>
+          {consentItems.map((consentItem: CustomerConsentItem) => {
+            return (
+              <div className={classes.marginTop} key={`consentItems${consentItems.indexOf(consentItem)}`}>
+                <Checkbox label={consentItem.label} name={`consentItems[${consentItems.indexOf(consentItem)}]`} required />
+              </div>
+            );
+          })}
+        </div>
+      </FormGroup>
+
+      <div className={classes.button}>
+        <Button label="Create Account" type="submit" className={classes.buttonColor} disabled={submitting || pristine || invalid} fullWidth />
+      </div>
+    </form>
   );
 });
 
@@ -133,9 +131,9 @@ Register = reduxForm({
 export default connect(
   (state: ApplicationState) => ({
     initialValues: {
-      optInItems: state.initial.signUpContent!.customerOptInItems!.map(x => x.defaultValue).toArray(),
-      consentItems: state.initial.signUpContent!.customerConsentItems!.map(x => x.defaultValue).toArray()
+      optInItems: state.initial.values!.signUpContent!.customerOptInItems!.map(x => x.defaultValue).toArray(),
+      consentItems: state.initial.values!.signUpContent!.customerConsentItems!.map(x => x.defaultValue).toArray()
     },
-    signUpContent: state.initial.signUpContent!
+    signUpContent: state.initial.values!.signUpContent!
   })
 )(Register as any) as any;

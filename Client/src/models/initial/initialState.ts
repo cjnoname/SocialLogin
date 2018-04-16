@@ -1,17 +1,15 @@
 import { Record } from 'immutable';
-import { SignInContent } from './signIn';
-import { SignUpContent } from './signUp';
+import { Values } from './values';
+import { Theme } from './theme';
 
 interface Interface {
-    isLoading: boolean,
-    signInContent?: SignInContent,
-    signUpContent?: SignUpContent
+  isLoading: boolean,
+  values?: Values
 }
 
 const initialValue = Record<Interface>({
-    isLoading: false,
-    signInContent: undefined,
-    signUpContent: undefined
+  isLoading: false,
+  values: undefined
 });
 
 export class InitialState extends initialValue { }

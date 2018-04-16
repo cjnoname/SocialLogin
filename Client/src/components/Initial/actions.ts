@@ -1,4 +1,4 @@
-import { Initial } from 'models/initial';
+import { Values } from 'models/initial';
 import { initialAction } from './workers/initial';
 
 export enum ActionTypes {
@@ -13,7 +13,7 @@ export interface InitialStarted {
 
 export interface InitialSucceeded {
   type: ActionTypes.INITIAL_SUCCEEDED,
-  initial?: Initial
+  values?: Values
 }
 
 export interface InitialFailed {

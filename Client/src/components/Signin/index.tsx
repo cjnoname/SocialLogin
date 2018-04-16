@@ -13,8 +13,10 @@ import Spinner from 'UI/Spinner';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import SocialButtons from 'shared/Components/SocialButtons';
+import { getPageTitle } from 'utils/getPageTitle';
+import LockIcon from 'material-ui-icons/Lock';
 
-const decorate = withStyles(({ mixins, spacing }) => ({
+const decorate = withStyles(({ mixins, palette }) => ({
   parent: {
     height: '100%',
     width: '100%',
@@ -56,9 +58,14 @@ const decorate = withStyles(({ mixins, spacing }) => ({
       textDecoration: 'underline'
     }
   },
-  forgotPassworUrl: {
+  forgotPassword: {
     fontSize: '0.875rem',
     fontWeight: 400 as 400
+  },
+  icon: {
+    verticalAlign: 'bottom' as 'bottom',
+    color: palette.primary.main,
+    fontSize: 20
   }
 }));
 
@@ -73,7 +80,10 @@ type Props =
   & RouteComponentProps<{}>;
 
 const SignIn = decorate(
-  class extends React.PureComponent<Props & WithStyles<'parent' | 'paper' | 'marginTop20' | 'text' | 'urlText' | 'forgotPassworUrl'>, {}> {
+  class extends React.PureComponent<Props & WithStyles<'parent' | 'paper' | 'marginTop20' | 'text' | 'urlText' | 'forgotPassword' | 'icon'>, {}> {
+    public componentDidMount() {
+      document.title = getPageTitle('Sign In');
+    }
 
     public submit = (values: ISignInRequest) => {
       // console.log(values);
@@ -88,13 +98,15 @@ const SignIn = decorate(
           <Paper className={classes.paper} elevation={4}>
             <Typography variant="headline" component="h2">
               Sign In
-          </Typography>
+            </Typography>
             <SocialButtons />
             <Divider className={classes.marginTop20} />
             <Login onSubmit={this.submit} />
             <Divider className={classes.marginTop20} />
             <div className={classes.text}>
-              <a href="https://premier.ticketek.com.au/membership/ForgotPassword.aspx" className={classNames(classes.urlText, classes.forgotPassworUrl)}>{signInContent.signIn!.labels!.forgotPassword}</a>
+              <a href="https://premier.ticketek.com.au/membership/ForgotPassword.aspx" className={classNames(classes.urlText, classes.forgotPassword)}>
+                <LockIcon className={classes.icon} />&nbsp;{signInContent.signIn!.labels!.forgotPassword}
+              </a>
             </div>
             <div className={classes.text}>
               <NavLink to="/signup" className={classes.urlText}>{signInContent.signIn!.labels!.createProfile}</NavLink>
@@ -109,7 +121,7 @@ const SignIn = decorate(
 export default connect(
   (state: ApplicationState) => ({
     isLoading: state.signIn.isLoading,
-    signInContent: state.initial.signInContent!
+    signInContent: state.initial.values!.signInContent!
   }),
   signInActions
 )(SignIn as any) as any;

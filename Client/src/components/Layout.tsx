@@ -8,10 +8,6 @@ import Drawer from 'material-ui/Drawer';
 import IconButton from 'material-ui/IconButton';
 import Hidden from 'material-ui/Hidden';
 import Divider from 'material-ui/Divider';
-import MenuIcon from 'material-ui-icons/Menu';
-import RestoreIcon from 'material-ui-icons/Restore';
-import FavoriteIcon from 'material-ui-icons/Favorite';
-import LocationOnIcon from 'material-ui-icons/LocationOn';
 
 const decorate = withStyles(({ breakpoints, mixins, palette, spacing }) => ({
   root: {
@@ -99,13 +95,11 @@ const MyLayout = decorate(
 
       return (
         <div className={classes.root}>
-          <div>
-            <AppBar className={classes.appBar} >
-              <Toolbar>
-                <img src={`https://ticketek-assets.s3.amazonaws.com/images/ticketekMain.svg`} className={classes.logo} />
-              </Toolbar>
-            </AppBar>
-          </div>
+          <AppBar className={classes.appBar} >
+            <Toolbar>
+              <img src={`https://ticketek-assets.s3.amazonaws.com/images/ticketekMain.svg`} className={classes.logo} />
+            </Toolbar>
+          </AppBar>
           <div className={classNames(classes.content, classes.contentPadding)}>
             <div className={classes.toolbar} />
             <div className={classes.center}>

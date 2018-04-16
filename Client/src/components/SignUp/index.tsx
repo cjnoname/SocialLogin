@@ -13,6 +13,7 @@ import Spinner from 'UI/Spinner';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import SocialButtons from 'shared/Components/SocialButtons';
+import { getPageTitle } from 'utils/getPageTitle';
 
 const decorate = withStyles(({ mixins, spacing }) => ({
   parent: {
@@ -70,6 +71,10 @@ type Props =
 
 const SignUp = decorate(
   class extends React.PureComponent<Props & WithStyles<'parent' | 'paper' | 'marginTop20' | 'text' | 'urlText'>, {}> {
+    public componentDidMount() {
+      document.title = getPageTitle('Sign Up');
+    }
+
     public render() {
       const { classes, isLoading } = this.props;
       return (

@@ -20,10 +20,13 @@ namespace SocialLogin.Controllers
         {
             var signInContent = await _signInService.GetSignInContent();
             var signUpContent = await _signInService.GetSignUpContent();
+            var theme = await _signInService.GetTheme();
+
             return Ok(new
             {
                 signInContent,
-                signUpContent
+                signUpContent,
+                theme
             });
         }
 

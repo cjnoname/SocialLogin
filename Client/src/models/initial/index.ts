@@ -1,5 +1,6 @@
 export { InitialState } from './initialState';
-export { Initial } from './initial';
+export { Theme } from './theme';
+export { Values } from './values';
 export { SignInContent } from './signIn';
 export { SignUpContent } from './signUp';
 export { CustomerOptInItem } from './signUp';

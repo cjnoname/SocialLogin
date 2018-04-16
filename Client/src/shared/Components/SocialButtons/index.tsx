@@ -15,10 +15,10 @@ const SocialButtons = decorate(
   class extends React.PureComponent<Props & WithStyles<''>, {}> {
     public render() {
       return (
-        <div>
+        <>
           <FacebookButton />
           <GoogleButton />
-        </div>
+        </>
       );
     }
   }
